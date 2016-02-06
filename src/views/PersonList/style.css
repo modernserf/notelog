@@ -51,6 +51,12 @@
     font-size: 48px;
 }
 
+.team_container {
+    max-height: 100000px;
+    overflow: hidden;
+    transition: max-height 2s;
+}
+
 .team_list {
     display: flex;
     flex-direction: row;
@@ -66,10 +72,9 @@
     transition: transform 2s ease-out;
 }
 
-.person_wrap.active {
+.active .person_wrap {
     display: none;
 }
-
 
 .detail_container {
     height: 0;
@@ -81,7 +86,10 @@
 }
 
 @media (min-width: 600px) {
-    .person_wrap.active {
+    .team_container.active {
+        max-height: 500px;
+    }
+    .active .person_wrap {
         display: block;
     }
     .detail_container {
@@ -90,8 +98,7 @@
     }
 }
 
-
-.detail_container.active {
+.active .detail_container {
     height: auto;
     transform: translate3d(0,0,0);
 }
@@ -169,55 +176,5 @@
 @media (min-width: 600px) {
     .detail_close {
         display: block;
-    }
-}
-
-
-.loading_spinner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.2s;
-    height: 0;
-}
-
-.loading_spinner svg {
-    transform-origin: center center;
-    transform: rotate(-90deg);
-    position: absolute;
-    top: 100px;
-    left: 50%;
-}
-
-.loading_spinner circle {
-    stroke: white;
-    stroke-miterlimit: 10px;
-    fill: transparent;
-}
-
-.loading_spinner.active {
-    opacity: 0.5;
-    height: 100%;
-}
-
-.loading_spinner.active circle {
-    animation: loadingManager 2s ease infinite;
-}
-
-@keyframes loadingManager {
-    0% {
-        stroke-dashoffset: 314px;
-    }
-
-    50% {
-        stroke-dashoffset: 0;
-    }
-
-    100% {
-        stroke-dashoffset: -314px;
     }
 }

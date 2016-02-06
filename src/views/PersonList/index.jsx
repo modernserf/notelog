@@ -1,10 +1,11 @@
-import S from "./style.css"
 import React from "react"
+import S from "./style.css"
 import { Link } from "react-router"
 import { connect } from "react-redux"
 import { teamSelector } from "data"
+import { Loading } from "../Loading"
 
-export function PersonListItem ({ data }) {
+function PersonListItem ({ data }) {
     return (
         <Link to={`/people/${data.id}`} className={S.person}>
             <div className={S.photo_wrap}>
@@ -19,7 +20,7 @@ export function PersonListItem ({ data }) {
 }
 
 // TODO: /people on esc
-export function PersonDetailItem ({ data }) {
+function PersonDetailItem ({ data }) {
     if (!data) { return <noscript/> }
 
     const content = data.profile.map((p, i) =>
@@ -45,40 +46,14 @@ export function PersonDetailItem ({ data }) {
     )
 }
 
-// would have been interesting to test my theory regarding generators
-// for animation. Alas, I've already sunk far too much time into this
-function Loading ({ active }) {
-    const strokeWidth = 10
-    const r = 50 + strokeWidth
-    const c = (r - strokeWidth) * 2 * Math.PI
-
-    return (
-        <div className={`${S.loading_spinner}
-            ${active ? S.active : ""}`}>
-            <svg style={{
-                width: r * 2,
-                height: r * 2,
-                marginTop: -r,
-                marginLeft: -r,
-            }}>
-                <circle cx={r} cy={r} r={r - strokeWidth}
-                    style={{
-                        strokeDasharray: c,
-                        strokeWidth,
-                    }}/>
-            </svg>
-        </div>
-    )
-}
-
-export function PersonList (props) {
+function PersonList (props) {
     const { list, map, loading, params, lastId } = props
     const active = !!params.id
     const selected = map.get(params.id || lastId)
 
     const teamList = list.map((p, i) =>
         <li key={p.id}
-            className={`${S.person_wrap} ${active ? S.active : ""}`}
+            className={S.person_wrap}
             style={active ? {transform: scatterTo(i, list.length)} : {}}>
             <PersonListItem data={p}/></li>)
 
@@ -87,10 +62,10 @@ export function PersonList (props) {
             <header className={S.page_header}>
                 <Hero/>
             </header>
-            <div className={S.team_container}>
+            <div className={`${S.team_container}
+                ${active ? S.active : ""}`}>
                 <Loading active={loading}/>
-                <div className={`${S.detail_container}
-                    ${active ? S.active : ""}`}>
+                <div className={S.detail_container}>
                     <PersonDetailItem data={selected}/>
                 </div>
                 <ul className={S.team_list}>{teamList}</ul>

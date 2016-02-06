@@ -63,6 +63,6 @@ function getPeople () {
 }
 
 export const index = async () => {
-    await sleep(3000) // just so we can see the loading spinner
+    await sleep(1000) // just so we can see the loading spinner
     return getPeople()
 }
