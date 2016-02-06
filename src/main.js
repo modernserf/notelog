@@ -22,7 +22,8 @@ const store = compose(
     addDevTools
 )(createStore)(reducer)
 
-reduxRouterMiddleware.listenForReplays(store, (state) => state.routing.location)
+reduxRouterMiddleware.listenForReplays(store,
+    (state) => state.routing.location)
 
 document.addEventListener("DOMContentLoaded", () => {
     DOM.render(view(store, history), document.getElementById("app"))

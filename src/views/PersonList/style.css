@@ -8,6 +8,8 @@
     background-image: url("img/salad-3.jpg");
     background-position: right top;
     background-size: auto 100%;
+    z-index: 10;
+    boz-shadow: 0 0 10px 10px rgba(0,0,0,0.5);
 }
 
 .hero_overlay {
@@ -46,8 +48,6 @@
     margin: 0 auto;
 }
 
-
-
 .page_title {
     padding: 24px;
     text-align: center;
@@ -55,32 +55,47 @@
     font-size: 48px;
 }
 
-.team_container {
-    padding: 24px 12px;
-    margin: 0 auto;
-}
-
 .team_list {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 24px 12px;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
-/* PersonListItem */
-.person {
-    display: flex;
-    flex-direction: row;
-    width: 300px;
+.person_wrap {
+    transition: transform 2s ease-out;
+}
+
+.detail_container {
+    transform: translate3d(0,-1000px,0);
+    transition: transform 1s;
+}
+
+.detail_container.active {
+    transform: translate3d(0,0,0);
+}
+
+.card {
     padding: 12px;
     border: 1px solid #ccc;
     margin: 6px;
     background-color: white;
+}
+
+/* PersonListItem */
+.person {
+    composes: card;
+    display: flex;
+    flex-direction: row;
+    width: 300px;
     transition: box-shadow 0.2s;
 }
 
 .person:hover {
-    box-shadow: 0 0 10px 4px rgba(50, 0, 50, 0.5);;
+    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.5);;
 }
 
 .text_wrap {
@@ -92,4 +107,42 @@
     font-size: 18px;
     line-height: 20px;
     padding-bottom: 6px;
+}
+
+/* PersonDetailItem */
+
+.person_detail {
+    composes: card;
+    width: 100%;
+    max-width: 612px;
+    margin: 24px auto;
+}
+
+.detail_header {
+    display: flex;
+    flex-direction: row;
+}
+
+.detail_name {
+    font-weight: bold;
+    font-size: 32px;
+    padding-bottom: 12px;
+}
+
+.detail_title {
+    font-size: 24px;
+}
+
+.detail_content p {
+    line-height: 20px;
+    margin-bottom: 12px;
+}
+
+.detail_close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-right: 6px;
+    font-size: 24px;
+    color: #666;
 }

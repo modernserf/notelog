@@ -40,27 +40,29 @@ function aLowlyGrunt () {
     return "Project Manager"
 }
 
-const titleGen = titles()
+function getPeople () {
+    const titleGen = titles()
 
-const people = avatars.slice(0, 30).map((id) => {
-    const f = faker.name.firstName()
-    const l = faker.name.lastName()
+    return avatars.slice(0, 30).map((id) => {
+        const f = faker.name.firstName()
+        const l = faker.name.lastName()
 
-    return {
-        id: id,
-        name: `${f} ${l}`,
-        title: titleGen.next().value,
-        photoURL: `https://s3.amazonaws.com/uifaces/faces/twitter/${id}/128.jpg`,
-        email: `${id}@example.com`,
-        profile: [
-            faker.lorem.paragraph(),
-            faker.lorem.paragraph(),
-            faker.lorem.paragraph(),
-        ],
-    }
-})
+        return {
+            id: id,
+            name: `${f} ${l}`,
+            title: titleGen.next().value,
+            photoURL: `https://s3.amazonaws.com/uifaces/faces/twitter/${id}/128.jpg`,
+            email: `${id}@example.com`,
+            profile: [
+                faker.lorem.paragraph(),
+                faker.lorem.paragraph(),
+                faker.lorem.paragraph(),
+            ],
+        }
+    })
+}
 
 export const index = async () => {
     // await sleep(1000) // just so we can see the loading spinner
-    return people
+    return getPeople()
 }
