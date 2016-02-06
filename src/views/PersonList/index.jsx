@@ -18,6 +18,7 @@ export function PersonListItem ({ data }) {
     )
 }
 
+// TODO: /people on esc
 export function PersonDetailItem ({ data }) {
     if (!data) { return <noscript/> }
 
@@ -44,13 +45,41 @@ export function PersonDetailItem ({ data }) {
     )
 }
 
-export function PersonList ({ list, map, loading, children, params }) {
-    const selected = map.get(params.id)
+// would have been interesting to test my theory regarding generators
+// for animation. Alas, I've already sunk far too much time into this
+function Loading ({ active }) {
+    const strokeWidth = 10
+    const r = 50 + strokeWidth
+    const c = (r - strokeWidth) * 2 * Math.PI
+
+    return (
+        <div className={`${S.loading_spinner}
+            ${active ? S.active : ""}`}>
+            <svg style={{
+                width: r * 2,
+                height: r * 2,
+                marginTop: -r,
+                marginLeft: -r,
+            }}>
+                <circle cx={r} cy={r} r={r - strokeWidth}
+                    style={{
+                        strokeDasharray: c,
+                        strokeWidth,
+                    }}/>
+            </svg>
+        </div>
+    )
+}
+
+export function PersonList (props) {
+    const { list, map, loading, params, lastId } = props
+    const active = !!params.id
+    const selected = map.get(params.id || lastId)
 
     const teamList = list.map((p, i) =>
         <li key={p.id}
-            className={S.person_wrap}
-            style={selected ? {transform: scatterTo(i, list.length)} : {}}>
+            className={`${S.person_wrap} ${active ? S.active : ""}`}
+            style={active ? {transform: scatterTo(i, list.length)} : {}}>
             <PersonListItem data={p}/></li>)
 
     return (
@@ -59,9 +88,10 @@ export function PersonList ({ list, map, loading, children, params }) {
                 <Hero/>
             </header>
             <div className={S.team_container}>
+                <Loading active={loading}/>
                 <div className={`${S.detail_container}
-                    ${selected ? S.active : ""}`}>
-                    {selected && withProps(children, {data: selected})}
+                    ${active ? S.active : ""}`}>
+                    <PersonDetailItem data={selected}/>
                 </div>
                 <ul className={S.team_list}>{teamList}</ul>
             </div>
@@ -89,9 +119,6 @@ function Hero () {
 export const PersonListView = connect(
     (state) => state[teamSelector]
 )(PersonList)
-
-const withProps = (children, props) =>
-    React.cloneElement(React.Children.only(children), props)
 
 function scatterTo (index, count) {
     const th = Math.PI * 5 * (index / count)

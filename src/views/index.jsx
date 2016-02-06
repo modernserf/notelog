@@ -3,7 +3,7 @@ import "./style.css"
 import React from "react"
 import { Provider } from "react-redux"
 import { Router, Route, Redirect } from "react-router"
-import { PersonListView, PersonDetailItem } from "./PersonList"
+import { PersonListView } from "./PersonList"
 
 export default function (store, history) {
     return (
@@ -11,7 +11,7 @@ export default function (store, history) {
             <Router history={history}>
                 <Redirect from="/" to="/people" />
                 <Route path="/people" component={PersonListView}>
-                    <Route path=":id" component={PersonDetailItem}/>
+                    <Route path=":id"/>
                 </Route>
             </Router>
         </Provider>
