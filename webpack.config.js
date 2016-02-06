@@ -16,7 +16,7 @@ var envPlugin = new webpack.DefinePlugin({
 var htmlPlugin = new HtmlPlugin({
     title: "BizCorp | Home",
     template: "src/index.html",
-    inject: "body",
+    inject: "head",
     env: envStr,
     hash: true,
 })
@@ -53,6 +53,7 @@ module.exports = {
             {test: /\.css$/, loaders: ["style", cssConfig, "postcss"]},
             {test: /\.js$/, exclude: /node_modules/, loader: "babel"},
             {test: /\.jsx$/, loader: "babel"},
+            {test: /\.jpg$/, loader: "file"},
         ],
     },
     postcss: {

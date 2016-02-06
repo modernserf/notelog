@@ -1,0 +1,95 @@
+/* PersonList */
+.page {
+    background-color: #665055;
+}
+
+.page_header {
+    background-color: white;
+    background-image: url("img/salad-3.jpg");
+    background-position: right top;
+    background-size: auto 100%;
+}
+
+.hero_overlay {
+    padding: 0 12px 24px;
+    background-color: rgba(255,255,255,0.7);
+}
+
+@media (min-width: 460px) {
+    .page_header {
+        background-size: 100% auto;
+        background-position: top center;
+        background-image: url("img/salad-2.jpg");
+        background-attachment: fixed;
+    }
+
+    .hero_overlay {
+        padding-top: 60px;
+    }
+}
+
+@media (min-width: 900px) {
+    .page_header {
+        background-image: url("img/salad-1.jpg");
+    }
+
+    .hero_overlay {
+        padding-top: 300px;
+    }
+}
+
+.page_header p {
+    text-align: justify;
+    line-height: 24px;
+    font-size: 18px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+
+
+.page_title {
+    padding: 24px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 48px;
+}
+
+.team_container {
+    padding: 24px 12px;
+    margin: 0 auto;
+}
+
+.team_list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* PersonListItem */
+.person {
+    display: flex;
+    flex-direction: row;
+    width: 300px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    margin: 6px;
+    background-color: white;
+    transition: box-shadow 0.2s;
+}
+
+.person:hover {
+    box-shadow: 0 0 10px 4px rgba(50, 0, 50, 0.5);;
+}
+
+.text_wrap {
+    padding: 0 12px;
+}
+
+.person_name {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 20px;
+    padding-bottom: 6px;
+}

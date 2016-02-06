@@ -1,23 +1,26 @@
 import "babel-polyfill"
 import "whatwg-fetch"
 import DOM from "react-dom"
-import { createStore, applyMiddleware, combineReducers } from "redux"
+import { createStore, applyMiddleware, compose } from "redux"
 import { createHistory } from "history"
-import { syncHistory, routeReducer } from "react-router-redux"
+import { syncHistory } from "react-router-redux"
 import sagaMiddleware from "redux-saga"
 import view from "./views"
-
-const reducer = combineReducers({
-    routing: routeReducer,
-})
+import { reducer, sagas } from "./data"
 
 const history = createHistory()
 const reduxRouterMiddleware = syncHistory(history)
-const store = createStore(
-    reducer,
+
+const addDevTools = window.devToolsExtension
+    ? window.devToolsExtension()
+    : (f) => f
+
+const store = compose(
     applyMiddleware(
-        sagaMiddleware(),
-        syncHistory(history)))
+        sagaMiddleware(...sagas),
+        syncHistory(history)),
+    addDevTools
+)(createStore)(reducer)
 
 reduxRouterMiddleware.listenForReplays(store, (state) => state.routing.location)
 
