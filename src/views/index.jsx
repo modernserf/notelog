@@ -2,18 +2,21 @@ import "./reset.css"
 import "./style.css"
 import React from "react"
 import { Provider } from "react-redux"
-import { Router, Route, Redirect } from "react-router"
-import { PersonListView } from "./PersonList"
+import { Router, Route } from "react-router"
 
-export default function (store, history) {
-    return (
-        <Provider store={store}>
-            <Router history={history}>
-                <Redirect from="/" to="/people" />
-                <Route path="/people" component={PersonListView}>
-                    <Route path=":id"/>
-                </Route>
-            </Router>
-        </Provider>
-    )
+export default class App extends React.Component {
+    render () {
+        const { store, history } = this.props
+        return (
+            <Provider store={store}>
+                <Router history={history}>
+                    <Route path="/" component={HelloWorld} />
+                </Router>
+            </Provider>
+        )
+    }
+}
+
+function HelloWorld () {
+    return <div>Hello, World!</div>
 }

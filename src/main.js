@@ -1,11 +1,12 @@
 import "babel-polyfill"
 import "whatwg-fetch"
+import React from "react"
 import DOM from "react-dom"
 import { createStore, applyMiddleware, compose } from "redux"
 import { createHistory } from "history"
 import { syncHistory } from "react-router-redux"
 import sagaMiddleware from "redux-saga"
-import view from "./views"
+import App from "./views"
 import { reducer, sagas } from "./data"
 
 const history = createHistory()
@@ -26,5 +27,6 @@ reduxRouterMiddleware.listenForReplays(store,
     (state) => state.routing.location)
 
 document.addEventListener("DOMContentLoaded", () => {
-    DOM.render(view(store, history), document.getElementById("app"))
+    DOM.render(React.createElement(App, {store, history}),
+    document.getElementById("app"))
 })

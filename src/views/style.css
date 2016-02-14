@@ -6,7 +6,6 @@
 html {
     font-family: "Helvetica", sans-serif;
     color: #222;
-    background-color: #665055;
 }
 
 a {
@@ -23,14 +22,15 @@ p a {
     cursor: pointer;
 }
 
-textarea {
-    display: block;
-}
-
+textarea,
 label {
     display: block;
 }
 
 strong {
-    font-weight: bold
+    font-weight: bold;
+}
+
+em {
+    font-style: italic;
 }

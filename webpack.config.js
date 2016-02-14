@@ -14,7 +14,7 @@ var envPlugin = new webpack.DefinePlugin({
 })
 
 var htmlPlugin = new HtmlPlugin({
-    title: "BizCorp | Home",
+    title: "Notelog",
     template: "src/index.html",
     inject: "head",
     env: envStr,
